@@ -11,19 +11,25 @@ try {
 
   await spinner.start('logging in..')
 
-  await login(username, password)
+  const isSuccess = await login(username, password)
 
-  await spinner.setText('network connected.')
-
-  const isOpen = await testConnection()
-
-  await spinner.stop()
-
-  if (isOpen) {
-    console.log(hi())
-  } else {
+  if (!isSuccess) {
+    await spinner.stop()
     console.error('login failed!')
+  } else {
+    await spinner.setText('network connected.')
+
+    const isOpen = await testConnection()
+
+    await spinner.stop()
+
+    if (isOpen) {
+      console.log(hi())
+    } else {
+      console.error('connected failed!')
+    }
   }
+
 } catch (e) {
   await spinner.stop()
   console.error(e)
