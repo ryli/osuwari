@@ -2,6 +2,13 @@ import Spinner from 'https://raw.githubusercontent.com/ameerthehacker/cli-spinne
 
 const spinner = Spinner.getInstance()
 
+interface LoginResponse {
+  success: boolean,
+  msg: string,
+  action: string,
+  location: string,
+}
+
 try {
   const [username, password] = Deno.args
 
@@ -11,11 +18,12 @@ try {
 
   await spinner.start('logging in..')
 
-  const isSuccess = await login(username, password)
+  const res = await login(username, password)
 
-  if (!isSuccess) {
+  if (!res.success) {
+    const msg = `login failed: ${res.msg}`
     await spinner.stop()
-    console.error('login failed!')
+    console.error(msg)
   } else {
     await spinner.setText('network connected.')
 
@@ -57,8 +65,9 @@ async function login(username: string, password: string) {
   if (res.ok) {
     const text = await res.text()
     // 还是转成对象吧
-    const body = JSON.parse(text.replace(/'/g, '"'))
-    return !!body?.success
+    const body: LoginResponse = JSON.parse(text.replace(/'/g, '"'))
+
+    return body
   }
 
   throw new Error('Network response was not ok.')
