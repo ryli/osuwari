@@ -4,4 +4,4 @@
 
 ## 用法
 
-`deno run --allow-net https://raw.githubusercontent.com/ryli/osuwari/master/wifi/index.ts username password`
+`deno run --allow-net https://raw.githubusercontent.com/ryli/osuwari/1.0.0/wifi/index.ts username password`
