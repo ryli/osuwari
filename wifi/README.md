@@ -5,7 +5,7 @@
 ## 用法
 
 ### 1. 直接运行
-`shell
+```shell
 deno run --allow-net https://raw.githubusercontent.com/ryli/osuwari/1.0.0/wifi/index.ts username password
 ```
 
