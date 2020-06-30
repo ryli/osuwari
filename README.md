@@ -1,3 +1,3 @@
-# deno 试手项目
+# Deno 开发的小工具
 
 - [wifi](./wifi/)
